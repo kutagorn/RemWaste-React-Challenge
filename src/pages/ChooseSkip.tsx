@@ -25,6 +25,11 @@ const Title = styled.h1`
   font-weight: 700;
   margin-bottom: 1.5rem;
 `;
+const Subtitle = styled.p`
+  margin: 0.25rem 0 1.75rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+`;
 
 export default function ChooseSkip() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -44,6 +49,7 @@ export default function ChooseSkip() {
 
       <section>
         <Title>Choose your skip size</Title>
+        <Subtitle>Select the skip size that best suits your needs</Subtitle>
         <SkipGrid selectedId={selectedId} onSelect={setSelectedId} />
       </section>
     </Layout>
