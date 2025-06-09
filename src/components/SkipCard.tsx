@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import type { Skip } from "../types/skip";
 import { skipImg } from "../assets/skipImgs";
 import { formatPrice } from "../utils/formatters";
+import { Check, X, PackageCheck, PackageX } from "lucide-react";
 
 const Card = styled(motion.button)<{ selected: boolean }>`
   position: relative;
@@ -29,6 +30,18 @@ const variants = {
     transition: { type: "spring", stiffness: 320, damping: 18 },
   },
 };
+
+const Chip = styled.span<{ active: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 9999px;
+  color: ${({ active }) => (active ? "#065f46" : "#6b7280")};
+  background: ${({ active }) =>
+    active ? "rgba(16,185,129,.15)" : "rgba(107,114,128,.15)"};
+`;
 
 const Name = styled.h3`
   font-size: 1rem;
@@ -86,8 +99,24 @@ export default function SkipCard({
         {skip.size} yd<sup>3</sup>
       </Badge>
       <Thumb src={skipImg(skip.size)} alt={`${skip.size} yard skip`} />
+      <div style={{ minWidth: 140 }}>
+        <Chip active={skip.allowed_on_road}>
+          {skip.allowed_on_road ? <Check size={14} /> : <X size={14} />}
+          On-road
+        </Chip>
+        &nbsp;
+        <Chip active={skip.allows_heavy_waste}>
+          {skip.allows_heavy_waste ? (
+            <PackageCheck size={14} />
+          ) : (
+            <PackageX size={14} />
+          )}
+          Heavy waste
+        </Chip>
+      </div>
       <Info>
-         <Name>{skip.size} Yard Skip</Name>{/* I don't get the name from json so I use {n} Yard Skip */}
+        <Name>{skip.size} Yard Skip</Name>
+        {/* I don't get the name from json so I use {n} Yard Skip */}
         <p style={{ fontSize: ".75rem", color: "#555" }}>
           {skip.hire_period_days}-day hire (inc VAT)
         </p>
