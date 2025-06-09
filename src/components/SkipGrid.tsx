@@ -1,6 +1,5 @@
-import { useState } from "react";
 import styled from "styled-components";
-import {  motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSkips } from "../hooks/useSkip";
 import SkipCard from "./SkipCard";
 
@@ -10,26 +9,33 @@ const Grid = styled.div`
   gap: 1rem;
 `;
 
-const StickyCTA = styled(motion.button)<{ enabled: boolean }>`
+const MobileCTA = styled(motion.button)<{ enabled: boolean }>`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 1.25rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   font-weight: 600;
   color: #fff;
   background: ${({ enabled }) => (enabled ? "var(--clr-accent)" : "#c0c0c0")};
 
   @media (min-width: 640px) {
-    position: static;
-    margin-top: 2rem;
-  }
+    display: none;
+  } /* hide on desktop */
 `;
 
-export default function SkipGrid() {
+type Props = {
+  selectedId: number | null;
+  onSelect: (id: number) => void;
+};
+
+export default function SkipGrid({ selectedId, onSelect }: Props) {
   const { skips, loading, error } = useSkips();
-  const [selected, setSelected] = useState<number | null>(null);
+  const selectedSkip = skips.find((s) => s.id === selectedId) ?? null;
 
   if (loading) return <p>Loading…</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -37,24 +43,19 @@ export default function SkipGrid() {
   return (
     <>
       <Grid>
-          {skips.map((s) => (
-            <SkipCard
-              key={s.id}
-              skip={s}
-              selected={selected === s.id}
-              onSelect={setSelected}
-            />
-          ))}
+        {skips.map((s) => (
+          <SkipCard
+            key={s.id}
+            skip={s}
+            selected={selectedId === s.id}
+            onSelect={onSelect}
+          />
+        ))}
       </Grid>
 
-      <StickyCTA
-        enabled={!!selected}
-        disabled={!selected}
-        animate={selected ? { scale: 1.03 } : { scale: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 18 }}
-      >
+      <MobileCTA enabled={!!selectedSkip} disabled={!selectedSkip}>
         Continue →
-      </StickyCTA>
+      </MobileCTA>
     </>
   );
 }

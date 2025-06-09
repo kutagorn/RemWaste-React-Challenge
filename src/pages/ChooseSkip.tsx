@@ -1,6 +1,10 @@
+import { useState } from "react";
+import { useSkips } from "../hooks/useSkip";
 import styled from "styled-components";
 import Stepper from "../components/Stepper";
 import SkipGrid from "../components/SkipGrid";
+import SummaryCard from "../components/SummaryCard";
+import DesktopCTA from "../components/DesktopCTA";
 
 const Layout = styled.main`
   display: grid;
@@ -10,7 +14,7 @@ const Layout = styled.main`
   margin: 0 auto;
   padding: 1rem 1rem 5rem;
 
-  @media (max-width: 700px) {
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
@@ -19,16 +23,28 @@ const Layout = styled.main`
 const Title = styled.h1`
   font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `;
 
 export default function ChooseSkip() {
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const { skips } = useSkips();
+  const selectedSkip = skips.find((s) => s.id === selectedId) ?? null;
   return (
     <Layout>
-      <Stepper />
+      <aside>
+        <Stepper />
+        {selectedSkip && (
+          <>
+            <SummaryCard skip={selectedSkip} />
+            <DesktopCTA />
+          </>
+        )}
+      </aside>
+
       <section>
         <Title>Choose your skip size</Title>
-        <SkipGrid />
+        <SkipGrid selectedId={selectedId} onSelect={setSelectedId} />
       </section>
     </Layout>
   );

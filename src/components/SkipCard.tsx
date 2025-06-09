@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
 import type { Skip } from "../types/skip";
 import { skipImg } from "../assets/skipImgs";
+import { formatPrice } from "../utils/formatters";
 
 const Card = styled(motion.button)<{ selected: boolean }>`
   position: relative;
@@ -28,6 +29,12 @@ const variants = {
     transition: { type: "spring", stiffness: 320, damping: 18 },
   },
 };
+
+const Name = styled.h3`
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+`;
 
 const Badge = styled.span`
   position: absolute;
@@ -80,10 +87,11 @@ export default function SkipCard({
       </Badge>
       <Thumb src={skipImg(skip.size)} alt={`${skip.size} yard skip`} />
       <Info>
-        <p style={{ fontWeight: 600 }}>£{skip.price_before_vat}</p>
+         <Name>{skip.size} Yard Skip</Name>{/* I don't get the name from json so I use {n} Yard Skip */}
         <p style={{ fontSize: ".75rem", color: "#555" }}>
-          {skip.hire_period_days}-day hire (inc&nbsp;VAT)
+          {skip.hire_period_days}-day hire (inc VAT)
         </p>
+        <p style={{ fontWeight: 600 }}>{formatPrice(skip.price_before_vat)}</p>
       </Info>
     </Card>
   );
