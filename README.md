@@ -7,10 +7,11 @@ Redesign of the **“Choose Your Skip Size”** step at
 
 ## ✨ What I built
 
-| Original page |
+**Original page**
 ![image](https://github.com/user-attachments/assets/cdd97e87-20f9-4830-9120-257d74322db6)
 
-| Redisigned page |
+**Redisigned page**
+![image](https://github.com/user-attachments/assets/7dbc7fac-6616-498d-8844-94afcc253732)
 
 Key differences:
 
@@ -38,19 +39,19 @@ Icons – lucide-react — tree-shakable SVG icon set.
 
 ## 📁 Folder structure
 
-src/
-api/skipService.ts // fetcher
-hooks/useSkips.ts // data hook
-components/
-SkipCard.tsx // row component
-SkipGrid.tsx // list container + mobile CTA
-Stepper.tsx // progress nav
-SummaryCard.tsx // sidebar summary
-DesktopCTA.tsx // sidebar continue btn
-pages/
-ChooseSkip.tsx // assembled page
-utils/formatters.ts // £ price helper
-GlobalStyle.tsx // reset + design tokens
+- src/
+- api/skipService.ts // fetcher
+- hooks/useSkips.ts // data hook
+- components/
+- SkipCard.tsx // row component
+- SkipGrid.tsx // list container + mobile CTA
+- Stepper.tsx // progress nav
+- SummaryCard.tsx // sidebar summary
+- DesktopCTA.tsx // sidebar continue btn
+- pages/
+- ChooseSkip.tsx // assembled page
+- utils/formatters.ts // £ price helper
+- GlobalStyle.tsx // reset + design tokens
 
 ---
 
