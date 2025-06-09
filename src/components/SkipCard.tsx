@@ -5,7 +5,7 @@ const Card = styled.button<{ selected: boolean }>`
   position: relative;
   padding: 1rem;
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--clr-card);
   box-shadow: var(--shadow);
   transition: transform 0.15s;
 
@@ -24,7 +24,7 @@ const Badge = styled.span`
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: var(--clr-primary);
+  background: linear-gradient(135deg, var(--clr-primary) 0%, #02957d 100%);
   color: #fff;
   font-size: 0.65rem;
   padding: 0.15rem 0.45rem;
