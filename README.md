@@ -1,4 +1,4 @@
-# RemWaste - React Coding Challenge 🗑️⚛️
+# RemWaste - React Coding Challenge 
 
 Redesign of the **“Choose Your Skip Size”** step at  
 <https://wewantwaste.co.uk> – completely re-imagined, yet 100 % functional.
@@ -8,6 +8,7 @@ Redesign of the **“Choose Your Skip Size”** step at
 ## ✨ What I built
 
 | Original page |
+![image](https://github.com/user-attachments/assets/cdd97e87-20f9-4830-9120-257d74322db6)
 
 | Redisigned page |
 
