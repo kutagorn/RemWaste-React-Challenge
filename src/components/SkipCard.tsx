@@ -5,21 +5,20 @@ import { skipImg } from "../assets/skipImgs";
 
 const Card = styled(motion.button)<{ selected: boolean }>`
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
   border-radius: var(--radius);
   background: var(--clr-card);
   box-shadow: var(--shadow);
-  transition: transform 0.15s;
+  transition: background 0.15s;
 
   ${({ selected }) =>
     selected &&
     css`
-      outline: 4px solid var(--clr-primary);
+      background: rgba(13, 148, 136, 0.1);
     `}
-
-  &:hover {
-    transform: translateY(-4px);
-  }
 `;
 const variants = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.35 } },
@@ -42,13 +41,19 @@ const Badge = styled.span`
 `;
 
 const Thumb = styled.img.attrs({ loading: "lazy" })`
-  height: 140px;
-  width: 100%;
+  flex: 0 0 120px;
+  height: 80px;
   object-fit: cover;
-  margin-bottom: 1rem;
   border-radius: 0.5rem;
   user-select: none;
   pointer-events: none;
+`;
+
+const Info = styled.div`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 `;
 
 export default function SkipCard({
@@ -66,7 +71,6 @@ export default function SkipCard({
       onClick={() => onSelect(skip.id)}
       layout
       variants={variants}
-      initial="initial"
       animate={selected ? "select" : "visible"}
       whileHover="hover"
       whileTap="tap"
@@ -74,15 +78,13 @@ export default function SkipCard({
       <Badge>
         {skip.size} yd<sup>3</sup>
       </Badge>
-
       <Thumb src={skipImg(skip.size)} alt={`${skip.size} yard skip`} />
-
-      <p style={{ fontWeight: 600, fontSize: "1.125rem" }}>
-        £{skip.price_before_vat}
-      </p>
-      <p style={{ fontSize: ".75rem", color: "#555" }}>
-        {skip.hire_period_days}-day hire (inc VAT)
-      </p>
+      <Info>
+        <p style={{ fontWeight: 600 }}>£{skip.price_before_vat}</p>
+        <p style={{ fontSize: ".75rem", color: "#555" }}>
+          {skip.hire_period_days}-day hire (inc&nbsp;VAT)
+        </p>
+      </Info>
     </Card>
   );
 }

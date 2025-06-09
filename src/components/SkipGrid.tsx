@@ -1,16 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
+import {  motion } from "framer-motion";
 import { useSkips } from "../hooks/useSkip";
 import SkipCard from "./SkipCard";
 
 const Grid = styled.div`
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const StickyCTA = styled(motion.button)<{ enabled: boolean }>`
@@ -18,7 +15,7 @@ const StickyCTA = styled(motion.button)<{ enabled: boolean }>`
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1rem;
+  padding: 1.25rem;
   text-align: center;
   font-weight: 600;
   color: #fff;
@@ -40,7 +37,6 @@ export default function SkipGrid() {
   return (
     <>
       <Grid>
-        <AnimatePresence mode="popLayout" initial={false}>
           {skips.map((s) => (
             <SkipCard
               key={s.id}
@@ -49,7 +45,6 @@ export default function SkipGrid() {
               onSelect={setSelected}
             />
           ))}
-        </AnimatePresence>
       </Grid>
 
       <StickyCTA
