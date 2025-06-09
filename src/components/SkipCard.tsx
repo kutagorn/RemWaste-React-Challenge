@@ -15,7 +15,10 @@ const Card = styled(motion.button)<{ selected: boolean }>`
   background: var(--clr-card);
   box-shadow: var(--shadow);
   transition: background 0.15s;
-
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   ${({ selected }) =>
     selected &&
     css`
@@ -67,6 +70,10 @@ const Thumb = styled.img.attrs({ loading: "lazy" })`
   border-radius: 0.5rem;
   user-select: none;
   pointer-events: none;
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 120px;
+  }
 `;
 
 const Info = styled.div`
@@ -74,6 +81,17 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+`;
+
+const ChipBlock = styled.div`
+  min-width: 140px;
+
+  @media (max-width: 480px) {
+    min-width: 100%;
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+  }
 `;
 
 export default function SkipCard({
@@ -99,21 +117,23 @@ export default function SkipCard({
         {skip.size} yd<sup>3</sup>
       </Badge>
       <Thumb src={skipImg(skip.size)} alt={`${skip.size} yard skip`} />
-      <div style={{ minWidth: 140 }}>
-        <Chip active={skip.allowed_on_road}>
-          {skip.allowed_on_road ? <Check size={14} /> : <X size={14} />}
-          On-road
-        </Chip>
-        &nbsp;
-        <Chip active={skip.allows_heavy_waste}>
-          {skip.allows_heavy_waste ? (
-            <PackageCheck size={14} />
-          ) : (
-            <PackageX size={14} />
-          )}
-          Heavy waste
-        </Chip>
-      </div>
+      <ChipBlock>
+        <div style={{ minWidth: 140 }}>
+          <Chip active={skip.allowed_on_road}>
+            {skip.allowed_on_road ? <Check size={14} /> : <X size={14} />}
+            On-road
+          </Chip>
+          &nbsp;
+          <Chip active={skip.allows_heavy_waste}>
+            {skip.allows_heavy_waste ? (
+              <PackageCheck size={14} />
+            ) : (
+              <PackageX size={14} />
+            )}
+            Heavy waste
+          </Chip>
+        </div>
+      </ChipBlock>
       <Info>
         <Name>{skip.size} Yard Skip</Name>
         {/* I don't get the name from json so I use {n} Yard Skip */}

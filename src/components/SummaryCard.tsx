@@ -10,6 +10,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  @media (max-width: 639px) {
+    display: none;
+  }
 `;
 
 const Size = styled.h3`
