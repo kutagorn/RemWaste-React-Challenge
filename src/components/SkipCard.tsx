@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import type { Skip } from "../types/skip";
+import { skipImg } from "../assets/skipImgs";
 
 const Card = styled.button<{ selected: boolean }>`
   position: relative;
@@ -31,11 +32,14 @@ const Badge = styled.span`
   border-radius: 9999px;
 `;
 
-const ImagePlaceholder = styled.div`
+const Thumb = styled.img.attrs({ loading: "lazy" })`
   height: 96px;
+  width: 100%;
+  object-fit: contain;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
-  background: #ffdd55; /* swap for a real <img src=…> later */
+  user-select: none;
+  pointer-events: none;
 `;
 
 export default function SkipCard({
@@ -53,7 +57,7 @@ export default function SkipCard({
         {skip.size} yd<sup>3</sup>
       </Badge>
 
-      <ImagePlaceholder />
+      <Thumb src={skipImg(skip.size)} alt={`${skip.size} yard skip`} />
 
       <p style={{ fontWeight: 600, fontSize: "1.125rem" }}>
         £{skip.price_before_vat}
