@@ -1,11 +1,11 @@
 # RemWaste - React Coding Challenge 
 
-Redesign of the **“Choose Your Skip Size”** step at  
-<https://wewantwaste.co.uk> – completely re-imagined, yet 100 % functional.
+Redesign of the **“Choose Your Skip Size”** 
+<https://wewantwaste.co.uk>
 
 ---
 
-## ✨ What I built
+## Differences with images:
 
 **Original Page**
 
@@ -24,22 +24,15 @@ Redesign of the **“Choose Your Skip Size”** step at
 
 ![image](https://github.com/user-attachments/assets/539e0524-c848-4106-87ae-c1e54ac00c85)
 
-Key differences:
+## Key differences:
 
-- **List layout** – I wanted to go for a look like reddit. 
-- **Progress stepper** – vertical icon stack (desktop) / mini bar (mobile).
-- **Summary panel** – selected skip, hire period & price shown in a card with a single _Continue →_ button (desktop); sticky bar on mobile.
-- **Teal + orange palette** – no resemblance to WW-Waste blue / yellow.
-- **Subtle motion** – Framer-motion hover & press, list items slide-in.
+I used a list layout with teal and orange colours. I put the navbar/stepper on left and put the summary area right below that. And added some hover animations. 
 
 ---
 
-## 🏗️ Tech stack
-
-- Build – Vite + React 18 + TS 
-- Styling – styled-components 
-- Data – plain fetch
-
+## Tech stack
+  
+  I used Vite, react, typescript and styled components.
 
 Data pulled from  
 `/api/skips/by-location?postcode=NR32&area=Lowestoft` (as requested).
