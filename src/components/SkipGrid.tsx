@@ -1,15 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSkips } from "../hooks/useSkip";
 import SkipCard from "./SkipCard";
 
 const Grid = styled.div`
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
-const StickyCTA = styled.button<{ enabled: boolean }>`
+const StickyCTA = styled(motion.button)<{ enabled: boolean }>`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -36,17 +40,24 @@ export default function SkipGrid() {
   return (
     <>
       <Grid>
-        {skips.map((s) => (
-          <SkipCard
-            key={s.id}
-            skip={s}
-            selected={selected === s.id}
-            onSelect={setSelected}
-          />
-        ))}
+        <AnimatePresence mode="popLayout" initial={false}>
+          {skips.map((s) => (
+            <SkipCard
+              key={s.id}
+              skip={s}
+              selected={selected === s.id}
+              onSelect={setSelected}
+            />
+          ))}
+        </AnimatePresence>
       </Grid>
 
-      <StickyCTA enabled={!!selected} disabled={!selected}>
+      <StickyCTA
+        enabled={!!selected}
+        disabled={!selected}
+        animate={selected ? { scale: 1.03 } : { scale: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
+      >
         Continue →
       </StickyCTA>
     </>

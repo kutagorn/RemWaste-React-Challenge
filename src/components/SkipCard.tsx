@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
+import { motion } from "framer-motion";
 import type { Skip } from "../types/skip";
 import { skipImg } from "../assets/skipImgs";
 
-const Card = styled.button<{ selected: boolean }>`
+const Card = styled(motion.button)<{ selected: boolean }>`
   position: relative;
   padding: 1rem;
   border-radius: var(--radius);
@@ -20,6 +21,14 @@ const Card = styled.button<{ selected: boolean }>`
     transform: translateY(-4px);
   }
 `;
+const variants = {
+  visible: { y: 0, opacity: 1, transition: { duration: 0.35 } },
+  hover: { y: -4, scale: 1.03 },
+  select: {
+    scale: 1,
+    transition: { type: "spring", stiffness: 320, damping: 18 },
+  },
+};
 
 const Badge = styled.span`
   position: absolute;
@@ -33,9 +42,9 @@ const Badge = styled.span`
 `;
 
 const Thumb = styled.img.attrs({ loading: "lazy" })`
-  height: 96px;
+  height: 140px;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   user-select: none;
@@ -52,7 +61,16 @@ export default function SkipCard({
   onSelect: (id: number) => void;
 }) {
   return (
-    <Card selected={selected} onClick={() => onSelect(skip.id)}>
+    <Card
+      selected={selected}
+      onClick={() => onSelect(skip.id)}
+      layout
+      variants={variants}
+      initial="initial"
+      animate={selected ? "select" : "visible"}
+      whileHover="hover"
+      whileTap="tap"
+    >
       <Badge>
         {skip.size} yd<sup>3</sup>
       </Badge>
